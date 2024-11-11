@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2ky84fwii5ic"]
+[gd_scene load_steps=17 format=3 uid="uid://c2ky84fwii5ic"]
 
 [ext_resource type="Script" path="res://components/drag_drop/3D/draggable_3d.gd" id="1_v05lo"]
 [ext_resource type="Script" path="res://components/drag_drop/3D/drag_and_drop_3d.gd" id="2_neekr"]
+[ext_resource type="PackedScene" uid="uid://doyr88dp1mja3" path="res://scenes/player/player.tscn" id="3_s14ke"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a3lor"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -149,6 +150,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_u6se4")
 shape = SubResource("ConvexPolygonShape3D_s46dg")
 
 [node name="Capsule" type="StaticBody3D" parent="."]
+visible = false
 
 [node name="Draggable3D" type="Node3D" parent="Capsule" node_paths=PackedStringArray("target")]
 script = ExtResource("1_v05lo")
@@ -180,3 +182,6 @@ shape = SubResource("ConvexPolygonShape3D_2duun")
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D2"]
 mesh = SubResource("BoxMesh_1jrfy")
 skeleton = NodePath("../..")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("3_s14ke")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0135516, 0.05, 0.223798)
