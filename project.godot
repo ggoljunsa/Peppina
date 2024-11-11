@@ -10,12 +10,12 @@ config_version=5
 
 [application]
 
-config/name="IndieBlueprint"
+config/name="Peppina"
 config/description="is a comprehensive Godot project template designed to streamline your development process. It includes essential features, optimized settings, and best practices to help you create amazing indie game"
 config/version="1.1.1"
 run/main_scene="res://scenes/entry_point/game-entry_point.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -38,6 +38,10 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/Godot-MToon-Shader/plugin.cfg")
 
 [file_customization]
 

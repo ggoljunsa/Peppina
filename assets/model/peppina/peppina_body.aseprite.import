@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dtg1jc2veiyq0"
+path="res://.godot/imported/peppina_body.aseprite-a6d915089cd208c80d7e7a107f44b432.res"
+
+[deps]
+
+source_file="res://assets/model/peppina/peppina_body.aseprite"
+dest_files=["res://.godot/imported/peppina_body.aseprite-a6d915089cd208c80d7e7a107f44b432.res"]
+
+[params]
+

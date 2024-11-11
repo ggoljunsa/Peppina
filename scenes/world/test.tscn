@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2ky84fwii5ic"]
+[gd_scene load_steps=16 format=3 uid="uid://c2ky84fwii5ic"]
 
 [ext_resource type="Script" path="res://components/drag_drop/3D/draggable_3d.gd" id="1_v05lo"]
 [ext_resource type="Script" path="res://components/drag_drop/3D/drag_and_drop_3d.gd" id="2_neekr"]
@@ -22,6 +22,90 @@ albedo_color = Color(0.20871, 0.20871, 0.20871, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_jjegd"]
 material = SubResource("StandardMaterial3D_5aikb")
 size = Vector3(5, 0.1, 5)
+
+[sub_resource type="Shader" id="Shader_teqb3"]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque, unshaded;
+
+uniform vec4 gridColor: source_color;
+uniform vec4 checkerColor: source_color;
+uniform float fadeStart = 0.0;
+uniform float fadeEnd = 10.0;
+uniform float unitSize = 1.0;
+uniform int subdivisions: hint_range(1, 10) = 5;
+uniform float majorLineThickness = 2.0;
+uniform float minorLineThickness = 1.0;
+uniform float minorLineAlpha: hint_range(0.0, 1.0) = .3;
+uniform vec3 centerOffset = vec3(0.0, 0.0, 0.0);
+
+// calculate line mask, usning a bit of fwidth() magic to make line width not affected by perspective
+float grid(vec2 pos, float unit, float thickness){
+	vec2 threshold = fwidth(pos) * thickness * .5 / unit;
+	vec2 posWrapped = pos / unit;
+	vec2 line = step(fract(-posWrapped), threshold) + step(fract(posWrapped), threshold);
+	return max(line.x, line.y);
+}
+
+// calculate checkerboard mask
+float checker(vec2 pos, float unit){
+	float square1 = step(.5, fract(pos.x / unit *.5));
+	float square2 = step(.5, fract(pos.y / unit *.5));
+	return max(square1,square2) - square1 * square2;
+}
+
+void fragment() {
+	// ray from camera to fragemnt in wrold space
+	vec3 rayWorld = normalize(mat3(INV_VIEW_MATRIX) * VIEW) ;
+
+	// calculate fragment position in world space
+	vec3 posWorld;
+	float t = -(CAMERA_POSITION_WORLD.y - centerOffset.y) / (rayWorld.y );
+	posWorld.y = -centerOffset.y;
+	posWorld.xz = CAMERA_POSITION_WORLD.xz + t * rayWorld.xz + centerOffset.xz;
+
+	// calculate planar distance from camera to fragment (used for fading)
+	float distPlanar = distance(posWorld.xz, centerOffset.xz);
+
+	// grid
+	float line = grid(posWorld.xz, unitSize, majorLineThickness);
+	line += grid(posWorld.xz, unitSize / float(subdivisions), minorLineThickness) * minorLineAlpha;
+	line = clamp(line, 0.0, 1.0);
+
+	// checkerboard
+	float chec = checker(posWorld.xz, unitSize);
+
+	// distance fade factor
+	float fadeFactor = 1.0 - clamp((distPlanar - fadeStart) / (fadeEnd - fadeStart), 0.0, 1.0);
+
+	// write ground plane depth into z buffer
+	vec4 pp = (PROJECTION_MATRIX * (VIEW_MATRIX * vec4(posWorld, 1.0)));
+	DEPTH = pp.z / pp.w;
+
+	// final alpha
+	float alphaGrid = line * gridColor.a;
+	float alphaChec = chec * checkerColor.a;
+	ALPHA = clamp(alphaGrid + alphaChec, 0.0, 1.0) * fadeFactor;
+	// eliminate grid above the horizon
+	ALPHA *= step(t, 0.0);
+
+	// final color (premultiplied alpha blend)
+	ALBEDO = (checkerColor.rgb * alphaChec) * (1.0 - alphaGrid) + (gridColor.rgb * alphaGrid);
+
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u6se4"]
+render_priority = 0
+shader = SubResource("Shader_teqb3")
+shader_parameter/gridColor = Color(0, 0, 0, 1)
+shader_parameter/checkerColor = Color(0, 0, 0, 1)
+shader_parameter/fadeStart = 0.0
+shader_parameter/fadeEnd = 10.0
+shader_parameter/unitSize = 1.0
+shader_parameter/subdivisions = 5
+shader_parameter/majorLineThickness = 2.0
+shader_parameter/minorLineThickness = 1.0
+shader_parameter/minorLineAlpha = 0.3
+shader_parameter/centerOffset = Vector3(0, 0, 0)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s46dg"]
 points = PackedVector3Array(-2.5, -0.05, -2.5, -2.5, 0.05, -2.5, 2.5, -0.05, -2.5, -2.5, -0.05, 2.5, -2.5, 0.05, 2.5, 2.5, 0.05, -2.5, 2.5, -0.05, 2.5, 2.5, 0.05, 2.5)
@@ -59,6 +143,7 @@ drag_distance_from_camera = 15.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_jjegd")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_u6se4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_s46dg")

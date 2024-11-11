@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bnqbnss14m2eo"
+path="res://.godot/imported/face.aseprite-233eb6a13845f6491fa589203bebd788.res"
+
+[deps]
+
+source_file="res://assets/model/peppina/face.aseprite"
+dest_files=["res://.godot/imported/face.aseprite-233eb6a13845f6491fa589203bebd788.res"]
+
+[params]
+
