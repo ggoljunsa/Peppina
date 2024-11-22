@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://boq8sj4prgcdy"]
 
 [ext_resource type="Shader" path="res://addons/Godot-MToon-Shader/mtoon_trans.gdshader" id="1_wtbqo"]
-[ext_resource type="Texture2D" uid="uid://dwu3jdyeixijm" path="res://peppina/face-Sheet.png" id="2_020vp"]
+[ext_resource type="Texture2D" uid="uid://dwu3jdyeixijm" path="res://assets/model/peppina/face-Sheet.png" id="2_020vp"]
 
 [resource]
 render_priority = 0
