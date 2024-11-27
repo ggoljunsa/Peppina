@@ -8,4 +8,6 @@ func update(_delta: float):
 	if (xy_input.length()) < 0.1:
 		FSM.change_state_to("Idle")
 	if Input.is_action_pressed("dash"):
+		FSM.change_state_to("Dash1")
+	if Input.is_action_pressed("grab"):
 		FSM.change_state_to("Grab")

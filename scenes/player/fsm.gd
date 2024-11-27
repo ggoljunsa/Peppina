@@ -1,10 +1,12 @@
 extends FiniteStateMachine
-@export var walk_speed := 5.0
-@export var grab_speed := 9.0
-@export var dash_speed_1 := 12.0
+@export var walk_speed := 1.0
+@export var grab_speed := 3.0
+@export var dash_speed_1 := 2.0
+@export var dash_speed_2 := 4.0
 var velocity_3d := Vector3.ZERO
 
 var input_vector:= Vector3.ZERO  # 상태에서 계산된 속도 저장
+var last_direction := Vector3.ZERO
 
 func _process(delta):
 	current_state.update(delta)
@@ -24,6 +26,14 @@ func get_velocity() -> Vector3:
 		_spd = grab_speed
 	elif current_state_is_by_name("Dash1"):
 		_spd = dash_speed_1
+	elif current_state_is_by_name("Dash2"):
+		_spd = dash_speed_2
+	elif current_state_is_by_name("Squeed"):
+		# Squeed 상태에서 속도 점진적 감소
+		velocity_3d = velocity_3d.lerp(Vector3(0,0, 0), 0.01)  # 감속 비율 0.1
+		print(velocity_3d)
+		return velocity_3d
+
 	velocity_3d.x = input_vector.x * _spd
 	velocity_3d.z = input_vector.z * _spd
 	return velocity_3d

@@ -163,11 +163,16 @@ func _change_animation(state: MachineState):
 		AnimTree.set("parameters/blend_for_walk/blend_amount",0.0)
 	elif state_name == "Grab":
 		print('grab anim')
+		AnimTree.set("parameters/Transition/transition_request", "grab")
+		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
+		#AnimTree.set("parameters/grab_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	elif state_name == "Dash1":
+		print('run1 anim')
 		AnimTree.set("parameters/Transition/transition_request", "move")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
-		AnimTree.set("parameters/grab_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-	elif state_name == "Dash1":
-		print('run anim')
+		AnimTree.set("parameters/blend_for_run/blend_amount",0.0)
+	elif state_name == "Dash2":
+		print('run2 anim')
 		AnimTree.set("parameters/Transition/transition_request", "move")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
 		AnimTree.set("parameters/blend_for_run/blend_amount",1.0)
