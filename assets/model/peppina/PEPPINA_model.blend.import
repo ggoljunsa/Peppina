@@ -14427,6 +14427,9 @@ _subresources={
 }
 },
 "nodes": {
+"PATH:Armature/Skeleton3D": {
+"rest_pose/external_animation_library": null
+},
 "PATH:Camera": {
 "import/skip_import": true
 },
