@@ -1,15 +1,12 @@
 extends PeppinaState
 @export var squeed_duration := 0.5
 var squeed_timer := 0.5
-
-func ready() -> void:
-	pass
-
+var look_dir = Vector2.ZERO
 
 func enter() -> void:
-	pass
-	
+	look_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back", 0.0)
 
+	
 func exit(_next_state: MachineState) -> void:
 	pass
 
@@ -24,3 +21,7 @@ func update(_delta: float):
 			FSM.change_state_to("Dash2")
 		else:
 			FSM.change_state_to("Idle")
+			
+func get_looking_direction() -> Vector2:
+	#print("get_look_dir", look_dir)
+	return look_dir

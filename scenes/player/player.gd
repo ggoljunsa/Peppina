@@ -34,6 +34,8 @@ var dash_reset_timer := 0.0
 
 var input_vector := Vector3.ZERO
 var velocity_3d := Vector3.ZERO
+var look_direction := Vector3.ZERO
+
 var snap_vector := Vector3.DOWN
 var is_dead := false
 var large_fall := false
@@ -59,6 +61,8 @@ func _physics_process(delta: float) -> void:
 	input_vector = FSM.get_input_vector()
 	input_vector = input_vector.rotated(Vector3.UP, n_camera_pos.rotation.y)
 	velocity_3d = FSM.get_velocity()
+	look_direction = FSM.get_look_dir()
+	
 	#_get_input()
 	#_apply_velocity()
 	set_velocity(velocity_3d)
@@ -133,7 +137,8 @@ func _rotate_mesh(delta: float) -> void:
 	# Rotate the player mesh based on camera's orientation / movement
 	if Vector2(velocity_3d.x, velocity_3d.z).length() > 0.05:
 		transform = transform.orthonormalized()
-		var look_dir := Vector2(input_vector.z, input_vector.x)
+		var look_dir := Vector2(look_direction.z, look_direction.x)
+		#print("rotate mesh look dir", look_dir)
 		# Convert basis to quaternion, keep in mind scale is lost
 		var quat := Quaternion(n_mesh.transform.basis)
 		var target_quat := Quaternion.from_euler(Vector3(0.0, look_dir.angle(), 0.0))
@@ -141,10 +146,6 @@ func _rotate_mesh(delta: float) -> void:
 		var lerped_quat := quat.slerp(target_quat, 10.0 * (delta * slomo_compensation))
 		# Apply lerped orientation
 		n_mesh.transform.basis = Basis(lerped_quat)
-	
-func _on_idle_2_entered() -> void:
-	print("idle entered the state")
-	pass # Replace with function body.
 
 
 func _on_finite_state_machine_state_changed(from_state: MachineState, state: MachineState) -> void:
