@@ -3,6 +3,8 @@ extends FiniteStateMachine
 @export var grab_speed := 3.0
 @export var dash_speed_1 := 2.0
 @export var dash_speed_2 := 4.0
+@export var dash_speed_3 := 6.0
+
 var velocity_3d := Vector3.ZERO
 
 var input_vector:= Vector3.ZERO  # 상태에서 계산된 속도 저장
@@ -32,9 +34,16 @@ func get_velocity() -> Vector3:
 		_spd = dash_speed_1
 	elif current_state_is_by_name("Dash2"):
 		_spd = dash_speed_2
+	elif current_state_is_by_name("Dash3"):
+		_spd = dash_speed_3
 	elif current_state_is_by_name("Squeed"):
 		# Squeed 상태에서 속도 점진적 
-		velocity_3d = velocity_3d.lerp(look_direction.normalized() * velocity_3d.length(), 0.1)
+		velocity_3d = velocity_3d.lerp(look_direction.normalized() * velocity_3d.length()*0.01, 0.1)
+		#print(velocity_3d)
+		return velocity_3d
+	elif current_state_is_by_name("Slideboost"):
+		# Squeed 상태에서 속도 점진적 
+		velocity_3d = velocity_3d.lerp(look_direction.normalized() * velocity_3d.length()*0.01, 0.05)
 		#print(velocity_3d)
 		return velocity_3d
 

@@ -5,6 +5,7 @@ signal entered
 signal finished(next_state: MachineState)
 
 var FSM: FiniteStateMachine
+var parameters : Dictionary = {}
 
 
 func ready() -> void:

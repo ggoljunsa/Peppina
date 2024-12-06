@@ -6,10 +6,14 @@ extends PeppinaState
 var grab_timer := 1.0
 var grab_direction := Vector2.ZERO
 var xy_input_fordect := Vector2.ZERO
+var previous_xy_input := Vector2.ZERO
+
 
 func enter() -> void:
 	grab_timer = grab_duration
 	#기존의 속력을 받아서 이동을 해야 한다.
+	previous_xy_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back", 0.0)
+
 	xy_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back", 0.0)
 
 func update(_delta: float):
@@ -18,7 +22,8 @@ func update(_delta: float):
 	if grab_timer <= 0.0:
 		grab_timer = grab_duration
 		if Input.is_action_pressed("dash"):
-			FSM.change_state_to("Dash2")
+			parameters["move_direction"] = previous_xy_input
+			FSM.change_state_to("Dash2", parameters)
 		else:
 			FSM.change_state_to("Idle")
 # 2. 여기서 방향이 바뀌면(90도 이상 차이가 나는 경우) idle스테이트로 이동한다. 

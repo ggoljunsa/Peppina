@@ -471,22 +471,8 @@ script = SubResource("GDScript_gk7r8")
 [node name="Crouch" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
 script = ExtResource("8_to2uw")
 actor = NodePath("../../..")
-gravity_force = null
 speed = 2.0
 side_speed = 1.9
-acceleration = null
-friction = null
-stair_stepping_enabled = null
-max_step_up = null
-max_step_down = null
-vertical = null
-horizontal = null
-run_input_action = null
-jump_input_action = null
-crouch_input_action = null
-crawl_input_action = null
-crouch_animation = null
-crawl_animation = null
 
 [node name="Run" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
 script = SubResource("GDScript_ys40m")
@@ -512,51 +498,12 @@ actor = NodePath("../../..")
 [node name="Crawl" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
 script = ExtResource("9_ps4a4")
 actor = NodePath("../../..")
-gravity_force = null
 speed = 1.5
 side_speed = 1.4
-acceleration = null
-friction = null
-stair_stepping_enabled = null
-max_step_up = null
-max_step_down = null
-vertical = null
-horizontal = null
-run_input_action = null
-jump_input_action = null
-crouch_input_action = null
-crawl_input_action = null
-crouch_animation = null
-crawl_animation = null
 
 [node name="Slide" type="Node" parent="FiniteStateMachine/Ground" node_paths=PackedStringArray("actor")]
 script = ExtResource("11_jpv7j")
-slide_time = null
-slide_lerp_speed = null
-slide_tilt = null
-slide_tilt_comeback_time = null
-slide_tilt_side = null
-friction_momentum = null
-slide_velocity_boost = null
-reduce_speed_gradually = null
-swing_head = null
 actor = NodePath("../../..")
-gravity_force = null
-speed = null
-side_speed = null
-acceleration = null
-friction = null
-stair_stepping_enabled = null
-max_step_up = null
-max_step_down = null
-vertical = null
-horizontal = null
-run_input_action = null
-jump_input_action = null
-crouch_input_action = null
-crawl_input_action = null
-crouch_animation = null
-crawl_animation = null
 
 [node name="Air" type="Node" parent="FiniteStateMachine"]
 
@@ -566,19 +513,7 @@ actor = NodePath("../../..")
 
 [node name="Fall" type="Node" parent="FiniteStateMachine/Air" node_paths=PackedStringArray("actor")]
 script = ExtResource("8_5oo54")
-edge_gap_auto_jump = null
-coyote_time = null
-coyote_time_frames = null
-jump_input_buffer = null
-jump_input_buffer_time_frames = null
 actor = NodePath("../../..")
-gravity_force = null
-air_speed = null
-air_side_speed = null
-air_acceleration = null
-air_friction = null
-maximum_fall_velocity = null
-jump_input_action = null
 
 [node name="Special" type="Node" parent="FiniteStateMachine"]
 

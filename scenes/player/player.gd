@@ -156,24 +156,45 @@ func _on_finite_state_machine_state_changed(from_state: MachineState, state: Mac
 func _change_animation(state: MachineState):
 	var state_name = state.name
 	if state_name == "Idle":
-		print('idle anim')
+		#print('idle anim')
 		AnimTree.set("parameters/Transition/transition_request", "stop")
+		$PEPPINA_model.face_var = 0
 	elif state_name == "Walk":
-		print('walk anim')
+		#print('walk anim')
 		AnimTree.set("parameters/Transition/transition_request", "move")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",0.0)
+		$PEPPINA_model.face_var = 3
 	elif state_name == "Grab":
-		print('grab anim')
+		#print('grab anim')
 		AnimTree.set("parameters/Transition/transition_request", "grab")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
 		#AnimTree.set("parameters/grab_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		$PEPPINA_model.face_var = 8
 	elif state_name == "Dash1":
-		print('run1 anim')
+		#print('run1 anim')
+		AnimTree.set("parameters/Transition/transition_request", "move")
+		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
+		AnimTree.set("parameters/blend_for_run/blend_amount",-1.0)
+		$PEPPINA_model.face_var = 3
+	elif state_name == "Dash2":
+		#print('run2 anim')
 		AnimTree.set("parameters/Transition/transition_request", "move")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
 		AnimTree.set("parameters/blend_for_run/blend_amount",0.0)
-	elif state_name == "Dash2":
-		print('run2 anim')
+		$PEPPINA_model.face_var = 3
+	elif state_name == "Dash3":
+		#print('run2 anim')
 		AnimTree.set("parameters/Transition/transition_request", "move")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
 		AnimTree.set("parameters/blend_for_run/blend_amount",1.0)
+		$PEPPINA_model.face_var = 7
+	elif state_name == "Squeed":
+		#print('squeed anim')
+		AnimTree.set("parameters/Transition/transition_request", "squeed")
+		AnimTree.set("parameters/blend_for_squeed/blend_amount",0.0)
+		$PEPPINA_model.face_var = 8
+	elif state_name == "Slideboost":
+		#print('squeed anim')
+		AnimTree.set("parameters/Transition/transition_request", "squeed")
+		AnimTree.set("parameters/blend_for_squeed/blend_amount",1.0)
+		$PEPPINA_model.face_var = 7

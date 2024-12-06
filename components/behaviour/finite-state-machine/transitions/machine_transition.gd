@@ -9,4 +9,6 @@ func should_transition() -> bool:
 	return true
 	
 func on_transition():
-	pass
+	if to_state:
+		# parameters를 다음 상태로 전달
+		to_state.parameters = parameters
