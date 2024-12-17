@@ -1,6 +1,6 @@
 extends FiniteStateMachine
 @export var walk_speed := 1.0
-@export var grab_speed := 3.0
+@export var grab_speed := 4
 @export var dash_speed_1 := 2.0
 @export var dash_speed_2 := 4.0
 @export var dash_speed_3 := 6.0

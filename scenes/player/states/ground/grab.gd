@@ -1,7 +1,6 @@
 extends PeppinaState
 
-@export var grab_speed := 10.0
-@export var grab_duration := 1.0
+@export var grab_duration := 0.7
 
 var grab_timer := 1.0
 var grab_direction := Vector2.ZERO

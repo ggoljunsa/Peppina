@@ -1,0 +1,13 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://c8v3ijeaon2ws"]
+
+[sub_resource type="Curve" id="42"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="43"]
+width = 100
+curve = SubResource("42")
+
+[resource]
+gravity = Vector3(0, 15, 0)
+scale_curve = SubResource("43")

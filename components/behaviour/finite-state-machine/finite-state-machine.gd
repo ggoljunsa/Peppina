@@ -45,6 +45,7 @@ func _process(delta):
 
 
 func change_state_to(next_state: Variant, parameters: Dictionary = {}):
+	#print("change state to", next_state)
 	if not is_transitioning:
 		
 		if next_state is GDScript:

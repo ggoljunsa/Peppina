@@ -64,6 +64,7 @@ func _physics_process(delta: float) -> void:
 	look_direction = FSM.get_look_dir()
 	
 	#_get_input()
+	#FSM.change_state_to("Dash1")
 	#_apply_velocity()
 	set_velocity(velocity_3d)
 	_rotate_mesh(delta)
@@ -159,10 +160,13 @@ func _change_animation(state: MachineState):
 		#print('idle anim')
 		AnimTree.set("parameters/Transition/transition_request", "stop")
 		$PEPPINA_model.face_var = 0
+		$DustParticles.emitting = false
+
 	elif state_name == "Walk":
 		#print('walk anim')
 		AnimTree.set("parameters/Transition/transition_request", "move")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",0.0)
+		$DustParticles.emitting = false
 		$PEPPINA_model.face_var = 3
 	elif state_name == "Grab":
 		#print('grab anim')
@@ -187,6 +191,7 @@ func _change_animation(state: MachineState):
 		AnimTree.set("parameters/Transition/transition_request", "move")
 		AnimTree.set("parameters/blend_for_walk/blend_amount",1.0)
 		AnimTree.set("parameters/blend_for_run/blend_amount",1.0)
+		$DustParticles.emitting = true
 		$PEPPINA_model.face_var = 7
 	elif state_name == "Squeed":
 		#print('squeed anim')
@@ -197,4 +202,11 @@ func _change_animation(state: MachineState):
 		#print('squeed anim')
 		AnimTree.set("parameters/Transition/transition_request", "squeed")
 		AnimTree.set("parameters/blend_for_squeed/blend_amount",1.0)
+		$DustParticles.emitting = true
 		$PEPPINA_model.face_var = 7
+	elif state_name == "Bump":
+		AnimTree.set("parameters/Transition/transition_request", "bump")
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	print(area)
+	FSM.change_state_to("Bump")

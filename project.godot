@@ -13,7 +13,7 @@ config_version=5
 config/name="Peppina"
 config/description="is a comprehensive Godot project template designed to streamline your development process. It includes essential features, optimized settings, and best practices to help you create amazing indie game"
 config/version="1.1.1"
-run/main_scene="res://scenes/entry_point/game-entry_point.tscn"
+run/main_scene="res://scenes/world/test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.png"
 
@@ -46,7 +46,7 @@ movie_writer/fps=30
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/Godot-MToon-Shader/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/Godot-MToon-Shader/plugin.cfg")
 
 [file_customization]
 
